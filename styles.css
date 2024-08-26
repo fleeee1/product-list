@@ -1,3 +1,7 @@
+body {
+
+}
+
 #desserts {
 
 }
@@ -10,7 +14,7 @@
 
 .container {
     display: flex;
-    flex-flow:column wrap;
+    flex-direction: row;
 }
 
 .waffle {
@@ -18,7 +22,7 @@
 }
 
 img {
-    border-radius: 25px;
+
 }
 
 .creme {
