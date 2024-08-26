@@ -2,16 +2,23 @@
 
 }
 
+#cart {
 
+}
 
 
 
 .container {
-
+    display: flex;
+    flex-flow:column wrap;
 }
 
 .waffle {
     
+}
+
+img {
+    border-radius: 25px;
 }
 
 .creme {
