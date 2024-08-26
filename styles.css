@@ -14,17 +14,25 @@ body {
 
 .container {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
+    gap: 25px;
 }
 
-.waffle {
+#waffle {
     
 }
+
+
 
 img {
     width: 210px;
     height: 210px;
     border-radius: 12px;
+}
+
+.product-text {
+
 }
 
 .creme {
