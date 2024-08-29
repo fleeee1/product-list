@@ -18,7 +18,7 @@ body {
 .container {
     display: flex;
     flex-flow: row wrap;
-    gap: 25px;
+    gap: 15px;
 }
 
 .product-all {
