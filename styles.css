@@ -28,7 +28,7 @@ body {
 .image-container {
     display: flex;
     flex-direction: column;
-    
+    align-items: center;
 }
 
 #food-image {
@@ -42,7 +42,7 @@ body {
     height: 40px;
     width: 160px;
     background-color: hsl(20, 50%, 98%);
-    
+   
 }
 
 .product-general {
