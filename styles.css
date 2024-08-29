@@ -2,14 +2,14 @@ body {
     font-family: "Red Hat Text";
     font-size: 16px;
     width: 1440px;
-    background-color: hsl(20, 50%, 98%)
+    background-color:hsl(13, 31%, 94%)
 }
 
 #desserts {
 
 }
 
-#cart {
+#cart-summary {
 
 }
 
@@ -21,51 +21,39 @@ body {
     gap: 25px;
 }
 
-#waffle {
+.product-all {
+
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
     
 }
 
-
-
-img {
-    width: 210px;
+#food-image {
+    width: 200px;
     height: 210px;
     border-radius: 12px;
+}
+
+.cart-button {
+    border-radius: 35px; 
+    height: 40px;
+    width: 160px;
+    background-color: hsl(20, 50%, 98%);
+    
 }
 
 .product-general {
     color: hsl(14, 25%, 72%)
 }
 
-.creme {
-
+.specific-info {
+  
 }
 
-.macaron {
-
-}
-
-.tiramisu {
-
-}
-
-.baklava {
-
-}
-
-.pie {
-
-}
-
-.cake {
-
-}
-
-.brownie {
-
-}
-
-.panna {
-
+.price {
+    
 }
 
