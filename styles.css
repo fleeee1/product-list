@@ -23,7 +23,7 @@ body {
 
 .product-all {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     gap: 10px;
 }
     .image-container {
@@ -40,7 +40,8 @@ body {
 
 .cart-button {
     border-radius: 35px; 
-    height: 40px;
+    border-color: rgb(156, 151, 151); //why is this only changing half of the button's clr? the other half is
+    height: 80px;
     width: 160px;
     background-color: hsl(20, 50%, 98%);
     position: relative;
