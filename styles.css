@@ -17,13 +17,13 @@ body {
 
 .container {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: row;
     gap: 15px;
 }
 
 .product-all {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column;
     gap: 10px;
 }
     .image-container {
