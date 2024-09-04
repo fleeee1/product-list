@@ -14,12 +14,12 @@ The designs were created to the following widths:
 - Red: hsl(14, 86%, 42%) // the buttons
 - Green: hsl(159, 69%, 38%) // green checkmark on modal
 
-- Rose 50: hsl(20, 50%, 98%)
+- Rose 50: hsl(20, 50%, 98%) //basically white
 - Rose 100: hsl(13, 31%, 94%) // body
 - Rose 300: hsl(14, 25%, 72%) // product-general
-- Rose 400: hsl(7, 20%, 60%)
-- Rose 500: hsl(12, 20%, 44%)
-- Rose 900: hsl(14, 65%, 9%)
+- Rose 400: hsl(7, 20%, 60%) //slightly lighter brown
+- Rose 500: hsl(12, 20%, 44%) // brown
+- Rose 900: hsl(14, 65%, 9%) // basically black
 
 ## Typography
 
