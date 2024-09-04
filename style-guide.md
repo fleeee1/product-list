@@ -11,10 +11,10 @@ The designs were created to the following widths:
 
 ## Colors
 
-- Red: hsl(14, 86%, 42%) // the buttons
+- Red: hsl(14, 86%, 42%) // orange-ish buttons/outlines
 - Green: hsl(159, 69%, 38%) // green checkmark on modal
 
-- Rose 50: hsl(20, 50%, 98%) //basically white
+- Rose 50: hsl(20, 50%, 98%) // Your Cart background
 - Rose 100: hsl(13, 31%, 94%) // body
 - Rose 300: hsl(14, 25%, 72%) // product-general
 - Rose 400: hsl(7, 20%, 60%) //slightly lighter brown
