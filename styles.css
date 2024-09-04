@@ -16,20 +16,36 @@ body {
 
 
 .container {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 480px 480px 480px;
+    /* flex-direction: row; */
     gap: 15px;
 }
 
-.product-all {
+#waffle-all {
     display: flex;
-    flex-flow: column;
-    gap: 10px;
+    flex-direction: column;
+    border: 5px solid blue;
 }
+
+
+
+
+/* .product-all {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: 5px solid blue;
+} */
+
+
+
     .image-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 5px solid red;
 }
 
 #food-image {
@@ -53,6 +69,7 @@ body {
     flex-direction: column;
     align-items: right;
     gap: 5px;
+    border: 5px solid green;
 }
 
 .product-general {
