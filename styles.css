@@ -6,6 +6,11 @@ body {
 }
 
 #desserts {
+    margin-left: 30px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 900;
 
 }
 
@@ -13,9 +18,13 @@ body {
 
 }
 
+.main-container {
+    display: grid;
+    gap: 5px;
 
+}
 
-.container {
+.dessert-container {
     display: grid;
     grid-template-columns: 300px 300px 300px;
     gap: 5px;
