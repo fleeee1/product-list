@@ -7,15 +7,34 @@ body {
 
 #desserts {
     margin-left: 30px;
-    margin-top: 50px;
+    margin-top: 0px;
     margin-bottom: 30px;
     font-size: 30px;
     font-weight: 900;
 
 }
 
-#cart-summary {
+#cart-container {
+    display: grid;
+    flex-direction: column;
 
+    background-color: white;
+    margin-top: 50px;
+    margin-left: 900px;
+    width: auto;
+    justify-content: space-between;
+
+}
+
+#your-cart {
+    
+    color: hsl(14, 86%, 42%);
+    
+}
+
+#added-items {
+    color: hsl(12, 20%, 44%);
+    font-weight:450;
 }
 
 .main-container {
@@ -68,9 +87,9 @@ body {
 
 .cart-button {
     border-radius: 35px; 
-    border-color: rgb(156, 151, 151); //why is this only changing half of the button's clr? the other half is
-    height: 80px;
-    width: 160px;
+    border-color: rgb(156, 151, 151); 
+    height: 40px;
+    width: 170px;
     background-color: hsl(20, 50%, 98%);
     position: relative;
     bottom: 20px;
@@ -96,5 +115,9 @@ body {
 .price {
     color: hsl(14, 86%, 42%);
     font-weight: 600;
+}
+
+.attribution {
+    margin: 25px;
 }
 
