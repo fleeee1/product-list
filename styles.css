@@ -17,11 +17,10 @@ body {
 }
 
 .hero-container{
-    display: flex;
-    
+    display: flex;   
 }
-.desserts-main{
 
+.desserts-main{
 }
 
 #desserts {
@@ -30,8 +29,7 @@ body {
     margin-bottom: 30px;
     font-size: 30px;
     font-weight: 900;
-
-}    
+}   
 
 .dessert-container {
     display: grid;
@@ -40,7 +38,6 @@ body {
 }
 
 #waffle-all {
-
 }
 
 .image-container {
@@ -72,7 +69,6 @@ body {
     align-items: left;
     gap: 5px;
     margin-left: 25px;
-
 }
 
 .product-general {
@@ -80,7 +76,6 @@ body {
 }
 
 .specific-info {
-  
 }
 
 .price {
@@ -89,7 +84,10 @@ body {
 }
 
 .product-all {
+}
 
+.attribution {
+    margin: 25px;
 }
 
 #cart-container {
@@ -100,10 +98,10 @@ body {
     padding:0.5rem;
 }
 
-#your-cart {
+h3 {
     color: hsl(14, 86%, 42%);
-    
 }
+
 .cart-image{
     display: flex;
     justify-content: center;
@@ -113,11 +111,3 @@ body {
     color: hsl(12, 20%, 44%);
     font-weight:450;
 }
-
-
-
-
-.attribution {
-    margin: 25px;
-}
-
