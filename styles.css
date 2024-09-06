@@ -23,12 +23,10 @@ body {
 .desserts-main{
 }
 
-#desserts {
-    margin-left: 30px;
-    margin-top: 0px;
+h1 {
+    margin-left: 40px;
+    margin-top: 25px;
     margin-bottom: 30px;
-    font-size: 30px;
-    font-weight: 900;
 }   
 
 .dessert-container {
@@ -91,7 +89,7 @@ body {
 }
 
 #cart-container {
-    background-color: white;
+    background-color: hsl(20, 50%, 98%);
     align-self: flex-start;
     display: flex;
     flex-direction: column;
