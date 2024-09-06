@@ -21,10 +21,11 @@ body {
 }
 
 .desserts-main{
+    margin-left: 75px;
 }
 
 h1 {
-    margin-left: 40px;
+    margin-left: 15px;
     margin-top: 25px;
     margin-bottom: 30px;
 }   
