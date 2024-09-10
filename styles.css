@@ -32,7 +32,7 @@ h1 {
 
 .dessert-container {
     display: grid;
-    grid-template-columns: 270px 270px 270px;
+    grid-template-columns: 240px 240px 240px;
 
 }
 
@@ -46,8 +46,8 @@ h1 {
 }
 
 #food-image {
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 200px;
     border-radius: 12px;
     /* border: 2px solid hsl(14, 86%, 42%); */ only when selected
 }
@@ -55,11 +55,16 @@ h1 {
 .cart-button {
     border-radius: 35px; 
     border-color: rgb(156, 151, 151); 
-    height: 40px;
-    width: 170px;
+    height: 38px;
+    width: 150px;
     background-color: hsl(20, 50%, 98%);
     position: relative;
-    bottom: 20px;
+    bottom: 25px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 #food-info {
@@ -88,7 +93,11 @@ h1 {
 }
 
 .attribution {
-    margin: 25px;
+    margin: 30px;
+    margin-left: 260px;
+    width: 175px;
+    font-size: 12px;
+    
 }
 
 #cart-container {
@@ -98,8 +107,8 @@ h1 {
     flex-direction: column;
     padding:1.5rem;
     border-radius: 6px;
-    width: 350px;
-    height: 300px;
+    width: 295px;
+    height: 250px;
     margin-bottom: 5px;
     margin-top: 25px;
     margin-left: 18px;
@@ -112,7 +121,7 @@ h3 {
 .cart-image{
     display: flex;
     justify-content: center;
-    padding: 40px;
+    padding: 25px;
 }
 
 #added-items {
@@ -120,5 +129,6 @@ h3 {
     font-weight:450;
     display: flex;
     justify-content: center;
-    font-size: 14px;
+    font-size: 12px;
+
 }
