@@ -76,11 +76,12 @@ h1 {
 }
 
 .specific-info {
+    font-weight: 500;
 }
 
 .price {
     color: hsl(14, 86%, 42%);
-    font-weight: 600;
+    font-weight: 455;
 }
 
 .product-all {
