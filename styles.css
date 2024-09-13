@@ -130,5 +130,47 @@ h3 {
     display: flex;
     justify-content: center;
     font-size: 12px;
+}
 
+.modal-container {
+    display: flex;
+    flex-direction: column;
+
+    height: 600px;
+    width: 600px;
+    border: 2px solid red;
+}
+
+.confirmation-top {
+    
+}
+
+.green-check {
+    border: 2px solid blue;
+
+   
+}
+
+.order-confirmed {
+
+}
+
+.enjoy-food {
+
+}
+
+.order-summary {
+
+}
+
+.first-order {
+
+}
+
+.order-total {
+
+}
+
+.start-order {
+    width: 200px;
 }
