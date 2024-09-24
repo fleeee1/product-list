@@ -16,7 +16,9 @@ cartBtns.forEach(btn =>
         } else {
             // Change to the active state
             button.style.backgroundColor = 'hsl(14, 86%, 42%)'; // Set background color when active
-            button.innerHTML = `<img src="assets/images/icon-increment-quantity.svg"> <img src="assets/images/icon-decrement-quantity.svg">`; // Add increment and decrement icons
+            button.innerHTML = `<img src="assets/images/icon-increment-quantity.svg"> 
+            <span class="cart-counter">1</span>
+            <img src="assets/images/icon-decrement-quantity.svg">`; // Add increment, cart-counter, and decrement icons
             button.classList.add("added-to-cart"); // Add the active state class
         }
     })
