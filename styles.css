@@ -69,6 +69,7 @@ h1 {
 
 .cart-button.active {
     justify-content: space-evenly;
+    color: rgb(251, 242, 233);
 }
 
 #food-info {
