@@ -67,6 +67,10 @@ h1 {
     gap: 10px;
 }
 
+.cart-button.active {
+    justify-content: space-evenly;
+}
+
 #food-info {
     display: flex;
     flex-direction: column;
