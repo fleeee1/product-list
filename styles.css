@@ -68,24 +68,27 @@ h1 {
 }
 
 .cart-button.active {
-    justify-content: space-evenly;
+    justify-content: space-between;
     color: rgb(251, 242, 233);
+    padding: 0 12px;
 }
 
 .circle {
     display: inline-flex;           /* Use inline-flex to center items */
     justify-content: center;       /* Center the icon */
     align-items: center;           /* Center the icon vertically */
-    width: 30px;                   /* Set width of circle */
-    height: 30px;                  /* Set height of circle */
+    width: 16px;                   /* Set width of circle */
+    height: 16px;                  /* Set height of circle */
     border-radius: 50%;            /* Make it circular */
-    background-color: #f0f0f0;    /* Background color of the circle */
+    background-color: hsl(14, 86%, 42%);    /* Background color of the circle */
     cursor: pointer;               /* Change cursor to pointer */
+    border: 1px solid rgb(251, 242, 233);
 }
 
 .circle img {
-    width: 16px;                   /* Adjust the icon size */
-    height: 16px;                  /* Adjust the icon size */
+    padding: 3px; /* Adjust this value for more or less space */
+    width: 100%; /* Optional: adjust icon size */
+    height: auto; /* Maintain aspect ratio */
 }
 
 

@@ -13,7 +13,6 @@ cartBtns.forEach(btn => {
 
                 currentQuantity++; // Increment the number
                 counter.innerText = currentQuantity; // Update the counter display
-                console.log("Incremented: ", currentQuantity);
             }
 
             if (event.target.closest(".decrement-btn")) {
@@ -23,13 +22,11 @@ cartBtns.forEach(btn => {
                 if (currentQuantity > 1) {
                     currentQuantity--; // Decrement the number
                     counter.innerText = currentQuantity; // Update the counter display
-                    console.log("Decremented: ", currentQuantity);
                 } else {
                     // Revert to the static state
                     button.style.backgroundColor = ''; // Reset background color to default
                     button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`; // Change to original icon and text
                     button.classList.remove("added-to-cart", "active"); // Remove the active state class
-                    console.log("Reverted to static state");
                 }
             }
 
