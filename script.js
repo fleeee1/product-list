@@ -9,25 +9,29 @@ cartBtns.forEach(btn => {
         if (isAdding) {
             // Check if the click target is the increment or decrement button
             if (event.target.matches(".increment-btn") || event.target.matches(".decrement-btn")) {
-                // Increment and decrement logic will be added below
                 const counter = button.querySelector(".cart-counter");
                 const incrementBtn = button.querySelector(".increment-btn");
                 const decrementBtn = button.querySelector(".decrement-btn");
 
+                if (!counter.innerText || isNaN(parseInt(counter.innerText))) {
+                    counter.innerText = 1; // Initialize to 1
+                }
+
                 // Increment button functionality
-                incrementBtn.addEventListener("click", function(event) {
-                    event.stopPropagation(); // Prevents triggering the parent button's click event
+                if (event.target.matches(".increment-btn")) {
+                    event.stopPropagation(); // Prevent triggering the parent button's click event
                     let currentQuantity = parseInt(counter.innerText); // Get the current number in the counter
+
                     currentQuantity++; // Increment the number
                     counter.innerText = currentQuantity; // Update the counter display
                     console.log("Incremented: ", currentQuantity);
-                });
+                }
 
                 // Decrement button functionality
-                decrementBtn.addEventListener("click", function(event) {
-                    event.stopPropagation(); // Prevents triggering the parent button's click event
+                if (event.target.matches(".decrement-btn")) {
+                    event.stopPropagation(); // Prevent triggering the parent button's click event
                     let currentQuantity = parseInt(counter.innerText); // Get the current number in the counter
-                    console.log('Decrement clicked! Current quantity:', currentQuantity); // Check if decrement is triggered
+                    console.log('Decrement clicked! Current quantity:', currentQuantity);
 
                     // If quantity is greater than 1, decrement; otherwise, revert to static state
                     if (currentQuantity > 1) {
@@ -41,12 +45,11 @@ cartBtns.forEach(btn => {
                         button.classList.remove("added-to-cart", "active"); // Remove the active state class
                         console.log("Reverted to static state");
                     }
-                });
+                }
 
                 return; // Exit the function to prevent further actions
             } else {
-                // Do nothing if clicking anywhere else when active
-                return; // Exit the function
+                return; // Exit the function if clicking anywhere else when active
             }
         } else {
             // Change to the active state
@@ -62,21 +65,4 @@ cartBtns.forEach(btn => {
 });
 
 
-
-
-
-
-
-// //1.function declaration
-// function addCartItem() {
-//     console.log("item added");
-// }
-
-// //2.function expression
-// const addCartItem = function() {
-//     console.log("item added");
-// }
-
-// //3.arrow function
-// const addCartItem = bYear => 2024-bYear;
 
