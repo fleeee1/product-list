@@ -7,7 +7,7 @@
 body {
     font-family: "Red Hat Text";
     font-size: 16px;
-    background-color:hsl(13, 31%, 94%)
+    background-color:hsl(13, 31%, 94%);
 }
 
 .main-container {
@@ -138,7 +138,7 @@ h1 {
     margin-left: 18px;
 }
 
-h3 {
+#cart-quantity {
     color: hsl(14, 86%, 42%);
 }
 
