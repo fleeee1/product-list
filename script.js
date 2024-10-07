@@ -1,6 +1,5 @@
 const cartBtns = document.querySelectorAll(".cart-button");
 const foodImage = document.getElementById("food-image");
-const cartQuantity = document.getElementByID("cart-quantity");
 
 cartBtns.forEach(btn => {
     btn.addEventListener("click", function(event) {
