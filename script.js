@@ -1,5 +1,7 @@
 const cartBtns = document.querySelectorAll(".cart-button");
 const foodImage = document.getElementById("food-image");
+const cartQuantity = document.getElementById("cart-quantity");
+const cartImage = document.getElementById("cart-image");
 
 cartBtns.forEach(btn => {
     btn.addEventListener("click", function(event) {
@@ -20,7 +22,10 @@ cartBtns.forEach(btn => {
                     // Find the corresponding image inside the same .image-container
                     const foodImage = button.closest(".image-container").querySelector("img");
                     foodImage.style.border = "2px solid hsl(14, 86%, 42%)"; // Apply the burnt sienna border on initial add
-                }
+                        if (cartImage) {
+                            cartImage.remove();
+                        }
+                 }
             }
             
 
