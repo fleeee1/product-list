@@ -18,15 +18,23 @@ cartBtns.forEach(btn => {
                 counter.innerText = currentQuantity; // Update the counter display
        
                 // Apply border if quantity is 1 or more
-                if (currentQuantity > 0) {
+                if (currentQuantity >= 1) {
                     // Find the corresponding image inside the same .image-container
                     const foodImage = button.closest(".image-container").querySelector("img");
                     foodImage.style.border = "2px solid hsl(14, 86%, 42%)"; // Apply the burnt sienna border on initial add
-                        if (cartImage) {
-                            cartImage.remove();
-                        }
-                 }
+
+                    console.log(`Current Quantity: ${currentQuantity}`); // Debugging
+
+                    // Directly select the cart image
+            const cartImage = document.querySelector("#cart-container .cart-image img");
+            console.log(cartImage); // Check if cartImage is correctly referenced
+
+                     // Check if the cartImage is present and remove it
+            if (cartImage) {
+                cartImage.remove(); // Remove the image if it exists
             }
+        }
+    }
             
 
             if (event.target.closest(".decrement-btn")) {
