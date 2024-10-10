@@ -75,30 +75,47 @@ cartBtns.forEach(btn => {
         }
 
         // Decrement logic (for the `-` button)
-        if (event.target.closest(".decrement-btn")) {
-            const counter = button.querySelector(".cart-counter");
-            let currentQuantity = parseInt(counter.innerText);
+if (event.target.closest(".decrement-btn")) {
+    const counter = button.querySelector(".cart-counter");
+    let currentQuantity = parseInt(counter.innerText);
 
-            if (currentQuantity > 1) {
-                currentQuantity--; // Decrement the number
-                counter.innerText = currentQuantity; // Update the counter display
-            } else {
-                // Revert to the static state when quantity is 0
-                button.style.backgroundColor = ''; // Reset background color to default
-                button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`; // Change to original icon and text
-                button.classList.remove("added-to-cart", "active"); // Remove the active state class
+    console.log("Current quantity before decrement:", currentQuantity);
 
-                // Remove the burnt sienna border
-                const foodImage = button.closest(".image-container").querySelector("img");
-                foodImage.style.border = ""; // Remove the burnt sienna border
+    if (currentQuantity > 1) {
+        currentQuantity--; // Decrement the number
+        counter.innerText = currentQuantity; // Update the counter display
+        console.log("New quantity after decrement:", currentQuantity);
+    } else {
+        // Revert to the static state when quantity is 0
+        button.style.backgroundColor = ''; // Reset background color to default
+        button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`; // Change to original icon and text
+        button.classList.remove("added-to-cart", "active"); // Remove the active state class
 
+        // Remove the burnt sienna border
+        const foodImage = button.closest(".image-container").querySelector("img");
+        foodImage.style.border = ""; // Remove the burnt sienna border
 
-                const cartImage = document.createElement("img");
-                cartImage.src = "assets/images/illustration-empty-cart.svg";
-                document.querySelector("#cart-container .cart-image").appendChild(cartImage);
-                console.log("add image back");
-                }
+        // When quantity goes to 0
+        if (currentQuantity === 0) {
+            console.log("Quantity is now zero, checking for cart text.");
+            const existingCartText = document.querySelector("#added-items");
+            console.log("Existing cart text found:", existingCartText);
+            if (!existingCartText) {
+                console.log("Creating cart text element.");
+                const cartText = document.createElement("p"); // Create the <p> element
+                cartText.id = "added-items"; // Set the ID
+                cartText.innerText = "Your added items will appear here"; // Set text content
+                cartText.style.color = "hsl(12, 20%, 44%)"; // Set color
+                cartText.style.fontWeight = "450"; // Set font weight
+                cartText.style.fontSize = "12px"; // Set font size
+                cartText.style.display = "flex"; // Set display to flex
+                cartText.style.justifyContent = "center"; // Center text
+                document.querySelector("#cart-container").appendChild(cartText); // Append the new <p>
+                console.log("Cart text added to the DOM:", cartText);
             }
-        
+        }
+    }
+}
+  
     });
 });
