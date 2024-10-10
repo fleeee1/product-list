@@ -33,9 +33,13 @@ cartBtns.forEach(btn => {
 
             // Remove cart image if quantity is >= 1
             const cartImage = document.querySelector("#cart-container .cart-image img");
+            const cartText = document.querySelector("#added-items");
+
             if (cartImage) {
-                cartImage.remove(); // Remove the image when the first item is added
-  
+                cartImage.remove(); // remove the image when the first item is added
+            }
+            if (cartText) {  // remove the text in the cart when first item added
+                cartText.remove();
             }
 
             // Apply border to food image
