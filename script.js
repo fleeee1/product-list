@@ -29,19 +29,19 @@ cartBtns.forEach(btn => {
 
             // set quantity to 1 on initial click
             let currentQuantity = 1;
-            console.log(`Initial Current Quantity: ${currentQuantity}`);
+
 
             // Remove cart image if quantity is >= 1
             const cartImage = document.querySelector("#cart-container .cart-image img");
             if (cartImage) {
                 cartImage.remove(); // Remove the image when the first item is added
-                console.log('Cart image removed'); // Log removal
+  
             }
 
             // Apply border to food image
             const foodImage = button.closest(".image-container").querySelector("img");
             foodImage.style.border = "2px solid hsl(14, 86%, 42%)"; // Apply the burnt sienna border on initial add
-            console.log(`Border applied to food image`); // Log border application
+
 
             // Change to the active state
             button.style.backgroundColor = 'hsl(14, 86%, 42%)'; // Set background color to burnt sienna when active
@@ -67,7 +67,7 @@ cartBtns.forEach(btn => {
             counter.innerText = currentQuantity; // Update the counter display
 
             // Log current quantity after incrementing
-            console.log(`Updated Current Quantity: ${currentQuantity}`); // Check the starting value
+
         }
 
         // Decrement logic (for the `-` button)
@@ -87,7 +87,7 @@ cartBtns.forEach(btn => {
                 // Remove the burnt sienna border
                 const foodImage = button.closest(".image-container").querySelector("img");
                 foodImage.style.border = ""; // Remove the burnt sienna border
-                console.log('Cart is empty again, reverted to default');
+
 
                 const cartImage = document.createElement("img");
                 cartImage.src = "assets/images/illustration-empty-cart.svg";
