@@ -1,7 +1,14 @@
 const cartBtns = document.querySelectorAll(".cart-button");
 const foodImage = document.getElementById("food-image");
-const cartQuantity = document.getElementById("cart-quantity");
 const cartImage = document.getElementById("cart-image");
+const cartQuantity = document.getElementById("cart-quantity");
+let currentQuantity = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+    const cartQuantity = document.getElementById("cart-quantity");
+    cartQuantity.innerText = `Your Cart (${currentQuantity})`; // Set to 0 on load
+    console.log("Initial quantity:", cartQuantity.innerText);
+});
 
 cartBtns.forEach(btn => {
     btn.addEventListener("click", function(event) {
@@ -13,23 +20,25 @@ cartBtns.forEach(btn => {
             // Activate the button
             button.classList.add("added-to-cart");
 
-            // Check if the .cart-counter already exists, and if not, create it
+            // Check if the .cart-counter already exists
             let counter = button.querySelector(".cart-counter");
+            let currentQuantity = counter ? parseInt(counter.innerText) : 0;
             
             // If the .cart-counter doesn't exist yet, create it
             if (!counter) {
                 // If counter doesn't exist yet, create it
                 counter = document.createElement("span"); // Create the <span> element to hold the counter
                 counter.classList.add("cart-counter"); // Add the class .cart-counter to it
-                counter.innerText = "1"; // Set initial quantity to 1
+                currentQuantity = 1; // set to 1 on first click
+                counter.innerText = currentQuantity; 
+                cartQuantity.innerText = `Your Cart (${currentQuantity})`;
                 button.appendChild(counter); // Append it to the button
             } else {
-                counter.innerText = "1"; // Just in case the counter exists but quantity wasn't set
+                currentQuantity++;
+                counter.innerText = currentQuantity; 
             }
 
-            // set quantity to 1 on initial click
-            let currentQuantity = 1;
-
+            console.log(`Current quantity: ${currentQuantity}`); // Debugging log
 
             // Remove cart image if quantity is >= 1
             const cartImage = document.querySelector("#cart-container .cart-image img");
@@ -64,54 +73,63 @@ cartBtns.forEach(btn => {
 
         // Increment logic (for the `+` button)
         if (event.target.closest(".increment-btn")) {
+
+            
+
             const counter = button.querySelector(".cart-counter");
             let currentQuantity = parseInt(counter.innerText);
 
             currentQuantity++; // Increment the number
             counter.innerText = currentQuantity; // Update the counter display
+            cartQuantity.innerText = `Your Cart (${currentQuantity})`;
 
+            console.log("new quantity after incrementing:", currentQuantity);
             // Log current quantity after incrementing
 
         }
 
-        // Decrement logic (for the `-` button)
-if (event.target.closest(".decrement-btn")) {
-    const counter = button.querySelector(".cart-counter");
-    let currentQuantity = parseInt(counter.innerText);
+            // Decrement logic (for the `-` button)
+            if (event.target.closest(".decrement-btn")) {
+    
+                const counter = button.querySelector(".cart-counter"); // Select the counter element
+                let currentQuantity = parseInt(counter.innerText); // Parse the current quantity from the counter
+                console.log("Current quantity before decrement:", currentQuantity); // Log the current quantity
+            
+                // Decrement the number, but first check if it's greater than 0
+                if (currentQuantity > 0) {
+                    currentQuantity--; // Decrement the number
+                    counter.innerText = currentQuantity; // Update the counter display
+                    cartQuantity.innerText = `Your Cart (${currentQuantity})`; // Update the cart quantity display
+                    console.log("New quantity after decrement:", currentQuantity); // Log the new quantity
+            
+                    // Check if currentQuantity is now 0
+                    if (currentQuantity === 0) {
+                        // All the existing code for when quantity goes to 0...
+                        console.log("Quantity is now zero, checking for cart text."); // Log zero quantity check
+                        const existingCartText = document.querySelector("#added-items"); // Check if cart text exists
+                        console.log("Existing cart text found:", existingCartText); // Log existence of cart text
+                        const existingCartImage = document.querySelector("#cart-container .cart-image img");
 
-    console.log("Current quantity before decrement:", currentQuantity);
+                        if (!existingCartText) {
+                            console.log("Creating cart text element."); // Log creation of cart text
+                            const cartText = document.createElement("p"); // Create the <p> element
+                            cartText.id = "added-items"; // Set the ID
+                            cartText.innerText = "Your added items will appear here"; // Set text content
+                            cartText.style.color = "hsl(12, 20%, 44%)"; // Set color
+                            cartText.style.fontWeight = "450"; // Set font weight
+                            cartText.style.fontSize = "12px"; // Set font size
+                            cartText.style.display = "flex"; // Set display to flex
+                            cartText.style.justifyContent = "center"; // Center text
+                            document.querySelector("#cart-container").appendChild(cartText); // Append the new <p>
+                            console.log("Cart text added to the DOM:", cartText); // Log that cart text has been added
 
-    if (currentQuantity > 1) {
-        currentQuantity--; // Decrement the number
-        counter.innerText = currentQuantity; // Update the counter display
-        console.log("New quantity after decrement:", currentQuantity);
-    } else {
-        // Revert to the static state when quantity is 0
-        button.style.backgroundColor = ''; // Reset background color to default
-        button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`; // Change to original icon and text
-        button.classList.remove("added-to-cart", "active"); // Remove the active state class
-
-        // Remove the burnt sienna border
-        const foodImage = button.closest(".image-container").querySelector("img");
-        foodImage.style.border = ""; // Remove the burnt sienna border
-
-        // When quantity goes to 0
-        if (currentQuantity === 0) {
-            console.log("Quantity is now zero, checking for cart text.");
-            const existingCartText = document.querySelector("#added-items");
-            console.log("Existing cart text found:", existingCartText);
-            if (!existingCartText) {
-                console.log("Creating cart text element.");
-                const cartText = document.createElement("p"); // Create the <p> element
-                cartText.id = "added-items"; // Set the ID
-                cartText.innerText = "Your added items will appear here"; // Set text content
-                cartText.style.color = "hsl(12, 20%, 44%)"; // Set color
-                cartText.style.fontWeight = "450"; // Set font weight
-                cartText.style.fontSize = "12px"; // Set font size
-                cartText.style.display = "flex"; // Set display to flex
-                cartText.style.justifyContent = "center"; // Center text
-                document.querySelector("#cart-container").appendChild(cartText); // Append the new <p>
-                console.log("Cart text added to the DOM:", cartText);
+                        if (!existingCartImage) {
+                            console.log("Creating cart image after reducing to zero");
+                            const cartImage = document.querySelector("#cart-container .cart-image img");
+                            document.querySelector("cart-image").appendChild(".cart-image img");
+                            console.log("cart image added back after decrementing to zero");
+                            
+                        }
             }
         }
     }
