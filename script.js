@@ -7,7 +7,7 @@ let currentQuantity = 0;
 document.addEventListener("DOMContentLoaded", () => {
     const cartQuantity = document.getElementById("cart-quantity");
     cartQuantity.innerText = `Your Cart (${currentQuantity})`; // Set to 0 on load
-    console.log("Initial quantity:", cartQuantity.innerText);
+    
 });
 
 cartBtns.forEach(btn => {
@@ -38,15 +38,15 @@ cartBtns.forEach(btn => {
                 counter.innerText = currentQuantity; 
             }
 
-            console.log(`Current quantity: ${currentQuantity}`); // Debugging log
+            
 
             // Remove cart image if quantity is >= 1
             const cartImage = document.querySelector("#cart-container .cart-image img");
             const cartText = document.querySelector("#added-items");
 
             // Log to confirm if elements are found
-console.log("Cart image:", cartImage); 
-console.log("Cart text:", cartText); 
+
+
 
             if (cartImage) {
                 cartImage.style.display = "none"; // remove the image when the first item is added
@@ -87,7 +87,7 @@ console.log("Cart text:", cartText);
             counter.innerText = currentQuantity; // Update the counter display
             cartQuantity.innerText = `Your Cart (${currentQuantity})`;
 
-            console.log("new quantity after incrementing:", currentQuantity);
+            
             // Log current quantity after incrementing
 
         }
@@ -97,14 +97,14 @@ console.log("Cart text:", cartText);
     
             const counter = button.querySelector(".cart-counter"); // Select the counter element
             let currentQuantity = parseInt(counter.innerText); // Parse the current quantity from the counter
-            console.log("Current quantity before decrement:", currentQuantity); // Log the current quantity
+            
             
             // Decrement the number, but first check if it's greater than 0
             if (currentQuantity > 0) {
                 currentQuantity--; // Decrement the number
                 counter.innerText = currentQuantity; // Update the counter display
                 cartQuantity.innerText = `Your Cart (${currentQuantity})`; // Update the cart quantity display
-                console.log("New quantity after decrement:", currentQuantity); // Log the new quantity
+                
             
                 // Check if currentQuantity is now 0
                 if (currentQuantity === 0) {
