@@ -44,11 +44,15 @@ cartBtns.forEach(btn => {
             const cartImage = document.querySelector("#cart-container .cart-image img");
             const cartText = document.querySelector("#added-items");
 
+            // Log to confirm if elements are found
+console.log("Cart image:", cartImage); 
+console.log("Cart text:", cartText); 
+
             if (cartImage) {
-                cartImage.remove(); // remove the image when the first item is added
+                cartImage.style.display = "none"; // remove the image when the first item is added
             }
             if (cartText) {  // remove the text in the cart when first item added
-                cartText.remove();
+                cartText.style.display = "none";
             }
 
             // Apply border to food image
