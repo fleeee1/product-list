@@ -76,20 +76,17 @@ cartBtns.forEach(btn => {
         }
 
         // Increment logic (for the `+` button)
-        if (event.target.closest(".increment-btn")) {
-
-            
-
+        if (event.target.closest(".increment-btn")) {        
             const counter = button.querySelector(".cart-counter");
             let currentQuantity = parseInt(counter.innerText);
-
             currentQuantity++; // Increment the number
             counter.innerText = currentQuantity; // Update the counter display
             cartQuantity.innerText = `Your Cart (${currentQuantity})`;
-
             
-            // Log current quantity after incrementing
-
+            const cartText = document.querySelector("#added-items");
+            cartText.style.display = "none";
+            const cartImage = document.querySelector("#cart-container .cart-image img");
+            cartImage.style.display = "none";
         }
 
         // Decrement logic (for the `-` button)
@@ -105,6 +102,12 @@ cartBtns.forEach(btn => {
                 counter.innerText = currentQuantity; // Update the counter display
                 cartQuantity.innerText = `Your Cart (${currentQuantity})`; // Update the cart quantity display
                 
+
+                function resetCartButton(button) {
+                    button.style.backgroundColor = "hsl(20, 50%, 98%)";
+                    button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`;
+                    button.classList.remove("added-to-cart", "active"); // remove any classes to get the button back to inactive
+                }
             
                 // Check if currentQuantity is now 0
                 if (currentQuantity === 0) {
@@ -113,6 +116,9 @@ cartBtns.forEach(btn => {
                     cartText.style.display = "flex";
                     const cartImage = document.querySelector("#cart-container .cart-image img");
                     cartImage.style.display = "block";
+                    const foodImage = button.closest(".image-container").querySelector("img");
+                    foodImage.style.border = "none";
+                    resetCartButton(button);
                 }
             }
         }
