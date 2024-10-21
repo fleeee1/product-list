@@ -15,14 +15,14 @@ cartBtns.forEach(btn => {
         const button = event.target.closest(".cart-button"); // Ensure we are targeting the button element itself
         const isAdding = button.classList.contains("added-to-cart");
 
-        // First-time Add to Cart button click (not yet active)
+        // First-time Add to Cart button click
         if (!isAdding) {
             // Activate the button
-            button.classList.add("added-to-cart");
+            button.classList.add("added-to-cart", "active"); // apply active button CSS class
 
             // Check if the .cart-counter already exists
             let counter = button.querySelector(".cart-counter");
-            let currentQuantity = counter ? parseInt(counter.innerText) : 0;
+            // let currentQuantity = counter ? parseInt(counter.innerText) : 0;
             
             // If the .cart-counter doesn't exist yet, create it
             if (!counter) {
@@ -30,98 +30,125 @@ cartBtns.forEach(btn => {
                 counter = document.createElement("span"); // Create the <span> element to hold the counter
                 counter.classList.add("cart-counter"); // Add the class .cart-counter to it
                 currentQuantity = 1; // set to 1 on first click
-                counter.innerText = currentQuantity; 
-                cartQuantity.innerText = `Your Cart (${currentQuantity})`;
+                counter.innerText = 1; 
+                // cartQuantity.innerText = `Your Cart (${currentQuantity})`;
                 button.appendChild(counter); // Append it to the button
-            } else {
-                currentQuantity++;
-                counter.innerText = currentQuantity; 
             }
 
-            
+            cartQuantity.innerText = `Your Cart (1)`; // initialize cart with 1 item
 
-            // Remove cart image if quantity is >= 1
-            const cartImage = document.querySelector("#cart-container .cart-image img");
-            const cartText = document.querySelector("#added-items");
+    // Remove cart image and text
+    const cartImage = document.querySelector("#cart-container .cart-image img");
+    const cartText = document.querySelector("#added-items");
+    if (cartImage) cartImage.style.display = "none";
+    if (cartText) cartText.style.display = "none";
 
-            // Log to confirm if elements are found
+    // Apply styling changes
+    const foodImage = button.closest(".image-container").querySelector("img");
+    foodImage.style.border = "2px solid hsl(14, 86%, 42%)";
+    button.style.backgroundColor = 'hsl(14, 86%, 42%)';
+
+    // Add increment and decrement controls without breaking the counter
+    const incrementBtn = document.createElement("div");
+    incrementBtn.classList.add("circle", "increment-btn");
+    incrementBtn.innerHTML = `<img src="assets/images/icon-increment-quantity.svg">`;
+
+    const decrementBtn = document.createElement("div");
+    decrementBtn.classList.add("circle", "decrement-btn");
+    decrementBtn.innerHTML = `<img src="assets/images/icon-decrement-quantity.svg">`;
+
+    // Clear button contents and re-append the elements
+    button.innerHTML = "";
+    button.append(decrementBtn, counter, incrementBtn);
+
+    // Update total cart quantity after first-time click
+    updateTotalCartQuantity();
+
+    return; // Exit here to prevent further logic from running
+}
 
 
 
-            if (cartImage) {
-                cartImage.style.display = "none"; // remove the image when the first item is added
-            }
-            if (cartText) {  // remove the text in the cart when first item added
-                cartText.style.display = "none";
-            }
-
-            // Apply border to food image
-            const foodImage = button.closest(".image-container").querySelector("img");
-            foodImage.style.border = "2px solid hsl(14, 86%, 42%)"; // Apply the burnt sienna border on initial add
 
 
-            // Change to the active state
-            button.style.backgroundColor = 'hsl(14, 86%, 42%)'; // Set background color to burnt sienna when active
-            button.innerHTML = `
-                <div class="circle decrement-btn">
-                    <img src="assets/images/icon-decrement-quantity.svg"> 
-                </div>
-                <span class="cart-counter">1</span>
-                <div class="circle increment-btn">
-                    <img src="assets/images/icon-increment-quantity.svg">
-                </div>
-            `;
-            button.classList.add("added-to-cart", "active"); // Add the active state class
-            return; // Exit the function after the first-time add-to-cart click
-        }
+
+
+
+
+
+
+
 
         // Increment logic (for the `+` button)
         if (event.target.closest(".increment-btn")) {        
             const counter = button.querySelector(".cart-counter");
             let currentQuantity = parseInt(counter.innerText);
             currentQuantity++; // Increment the number
-            counter.innerText = currentQuantity; // Update the counter display
-            cartQuantity.innerText = `Your Cart (${currentQuantity})`;
-            
-            const cartText = document.querySelector("#added-items");
-            cartText.style.display = "none";
-            const cartImage = document.querySelector("#cart-container .cart-image img");
-            cartImage.style.display = "none";
-        }
+            // counter.innerText = currentQuantity; // Update the counter display
+            counter.innerText = currentQuantity; // update counter display
 
-        // Decrement logic (for the `-` button)
+            // update total cart quantity display
+            updateTotalCartQuantity();
+        }
+            
+        //     const cartText = document.querySelector("#added-items");
+        //     cartText.style.display = "none";
+        //     const cartImage = document.querySelector("#cart-container .cart-image img");
+        //     cartImage.style.display = "none";
+        // }
+
+
+
+        // decrement logic
         if (event.target.closest(".decrement-btn")) {
-    
             const counter = button.querySelector(".cart-counter"); // Select the counter element
             let currentQuantity = parseInt(counter.innerText); // Parse the current quantity from the counter
-            
-            
+
             // Decrement the number, but first check if it's greater than 0
             if (currentQuantity > 0) {
                 currentQuantity--; // Decrement the number
                 counter.innerText = currentQuantity; // Update the counter display
-                cartQuantity.innerText = `Your Cart (${currentQuantity})`; // Update the cart quantity display
+                updateTotalCartQuantity();
                 
 
-                function resetCartButton(button) {
-                    button.style.backgroundColor = "hsl(20, 50%, 98%)";
-                    button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`;
-                    button.classList.remove("added-to-cart", "active"); // remove any classes to get the button back to inactive
-                }
+                // function resetCartButton(button) {
+                //     button.style.backgroundColor = "hsl(20, 50%, 98%)";
+                //     button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`;
+                //     button.classList.remove("added-to-cart", "active"); // remove any classes to get the button back to inactive
+                // }
             
                 // Check if currentQuantity is now 0
                 if (currentQuantity === 0) {
-                    const cartText = document.querySelector("#added-items");
-                    cartText.style.display = "block";
-                    cartText.style.display = "flex";
+                    resetCartButton(button); // reset when quantity is decreased to 0
+
+                    // show cart image and text again if all items are removed
                     const cartImage = document.querySelector("#cart-container .cart-image img");
-                    cartImage.style.display = "block";
-                    const foodImage = button.closest(".image-container").querySelector("img");
-                    foodImage.style.border = "none";
-                    resetCartButton(button);
+                    const cartText = document.querySelector("#added-items");
+                    if (cartImage) cartImage.style.display = "block";
+                    if (cartText) cartText.style.display = "block";
                 }
             }
         }
-  
     });
 });
+
+// helper function to update the total cart quantity
+function updateTotalCartQuantity() {
+    let totalQuantity = 0;
+
+    cartBtns.forEach((btn) => {
+        const counter = btn.querySelector(".cart-counter");
+        if (counter) {
+            totalQuantity += parseInt(counter.innerText);
+        }
+    });
+
+    cartQuantity.innerText = `Your Cart (${totalQuantity})`;
+}
+
+// Reset button logic
+function resetCartButton(button) {
+    button.style.backgroundColor = "hsl(20, 50%, 98%)";
+    button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`;
+    button.classList.remove("added-to-cart", "active");
+}
