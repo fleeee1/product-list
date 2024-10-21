@@ -98,9 +98,11 @@ cartBtns.forEach(btn => {
                     // show cart image and text again if all items are removed
                     const cartImage = document.querySelector("#cart-container .cart-image img");
                     const cartText = document.querySelector("#added-items");
+                    const foodImage = button.closest(".image-container").querySelector("img");
                     if (cartImage) cartImage.style.display = "block";
                     if (cartText) cartText.style.display = "block";
                     if (cartText) cartText.style.display = "flex";
+                    if (foodImage) foodImage.style.border = "none";
                 }
             }
         }
