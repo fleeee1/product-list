@@ -19,6 +19,7 @@ cartBtns.forEach(btn => {
         if (!isAdding) {
             // Activate the button
             button.classList.add("added-to-cart", "active"); // apply active button CSS class
+            
 
             // Check if the .cart-counter already exists
             let counter = button.querySelector(".cart-counter");
@@ -67,18 +68,6 @@ cartBtns.forEach(btn => {
     return; // Exit here to prevent further logic from running
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
         // Increment logic (for the `+` button)
         if (event.target.closest(".increment-btn")) {        
             const counter = button.querySelector(".cart-counter");
@@ -91,14 +80,6 @@ cartBtns.forEach(btn => {
             updateTotalCartQuantity();
         }
             
-        //     const cartText = document.querySelector("#added-items");
-        //     cartText.style.display = "none";
-        //     const cartImage = document.querySelector("#cart-container .cart-image img");
-        //     cartImage.style.display = "none";
-        // }
-
-
-
         // decrement logic
         if (event.target.closest(".decrement-btn")) {
             const counter = button.querySelector(".cart-counter"); // Select the counter element
@@ -109,14 +90,7 @@ cartBtns.forEach(btn => {
                 currentQuantity--; // Decrement the number
                 counter.innerText = currentQuantity; // Update the counter display
                 updateTotalCartQuantity();
-                
-
-                // function resetCartButton(button) {
-                //     button.style.backgroundColor = "hsl(20, 50%, 98%)";
-                //     button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`;
-                //     button.classList.remove("added-to-cart", "active"); // remove any classes to get the button back to inactive
-                // }
-            
+                          
                 // Check if currentQuantity is now 0
                 if (currentQuantity === 0) {
                     resetCartButton(button); // reset when quantity is decreased to 0
@@ -126,6 +100,7 @@ cartBtns.forEach(btn => {
                     const cartText = document.querySelector("#added-items");
                     if (cartImage) cartImage.style.display = "block";
                     if (cartText) cartText.style.display = "block";
+                    if (cartText) cartText.style.display = "flex";
                 }
             }
         }
