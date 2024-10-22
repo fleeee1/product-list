@@ -91,23 +91,26 @@ cartBtns.forEach(btn => {
                 counter.innerText = currentQuantity; // Update the counter display
                 updateTotalCartQuantity();
                           
-                // Check if currentQuantity is now 0
+                // if the current counter reaches 0, reset the button
                 if (currentQuantity === 0) {
                     resetCartButton(button); // reset when quantity is decreased to 0
+                }
 
-                    // show cart image and text again if all items are removed
-                    const cartImage = document.querySelector("#cart-container .cart-image img");
-                    const cartText = document.querySelector("#added-items");
-                    const foodImage = button.closest(".image-container").querySelector("img");
-                    if (cartImage) cartImage.style.display = "block";
-                    if (cartText) cartText.style.display = "block";
-                    if (cartText) cartText.style.display = "flex";
-                    if (foodImage) foodImage.style.border = "none";
+                 // Check if all counters are 0 and reset cart display if needed
+                if (checkIfCartIsEmpty()) {
+                    resetCartDisplay();
                 }
             }
         }
     });
 });
+
+function checkIfCartIsEmpty() {
+    return [...cartBtns].every((btn) => {
+        const counter = btn.querySelector(".cart-counter");
+        return !counter || parseInt(counter.innerText) === 0;
+    });
+}
 
 // helper function to update the total cart quantity
 function updateTotalCartQuantity() {
@@ -123,9 +126,16 @@ function updateTotalCartQuantity() {
     cartQuantity.innerText = `Your Cart (${totalQuantity})`;
 }
 
-// Reset button logic
 function resetCartButton(button) {
+    button.classList.remove("added-to-cart", "active");
     button.style.backgroundColor = "hsl(20, 50%, 98%)";
     button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`;
-    button.classList.remove("added-to-cart", "active");
+}
+
+function resetCartDisplay() {
+    const cartImage = document.querySelector("#cart-container .cart-image img");
+    const cartText = document.querySelector("#added-items");
+
+    if (cartImage) cartImage.style.display = "block";
+    if (cartText) cartText.style.display = "flex";
 }
