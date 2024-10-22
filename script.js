@@ -94,11 +94,17 @@ cartBtns.forEach(btn => {
                 // if the current counter reaches 0, reset the button
                 if (currentQuantity === 0) {
                     resetCartButton(button); // reset when quantity is decreased to 0
-                }
+                        
+                    // Get the food image associated with the button
+                    const foodImage = button.closest(".image-container").querySelector("img");
+                    if (foodImage) {
+                        foodImage.style.border = "none"; // Remove the border
+                    }
 
-                 // Check if all counters are 0 and reset cart display if needed
-                if (checkIfCartIsEmpty()) {
-                    resetCartDisplay();
+                    // Check if all counters are 0 and reset cart display if needed
+                    if (checkIfCartIsEmpty()) {
+                        resetCartDisplay();
+                    }
                 }
             }
         }
