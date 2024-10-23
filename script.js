@@ -15,6 +15,8 @@ cartBtns.forEach(btn => {
         const button = event.target.closest(".cart-button"); // Ensure we are targeting the button element itself
         const isAdding = button.classList.contains("added-to-cart");
 
+
+        addItemToCart(event);
         // First-time Add to Cart button click
         if (!isAdding) {
             // Activate the button
@@ -34,9 +36,12 @@ cartBtns.forEach(btn => {
                 counter.innerText = 1; 
                 // cartQuantity.innerText = `Your Cart (${currentQuantity})`;
                 button.appendChild(counter); // Append it to the button
+                
             }
 
             cartQuantity.innerText = `Your Cart (1)`; // initialize cart with 1 item
+            
+          
 
     // Remove cart image and text
     const cartImage = document.querySelector("#cart-container .cart-image img");
@@ -64,6 +69,7 @@ cartBtns.forEach(btn => {
 
     // Update total cart quantity after first-time click
     updateTotalCartQuantity();
+    
 
     return; // Exit here to prevent further logic from running
 }
@@ -78,6 +84,7 @@ cartBtns.forEach(btn => {
 
             // update total cart quantity display
             updateTotalCartQuantity();
+           
         }
             
         // decrement logic
@@ -144,4 +151,17 @@ function resetCartDisplay() {
 
     if (cartImage) cartImage.style.display = "block";
     if (cartText) cartText.style.display = "flex";
+}
+
+function addItemToCart(event) {
+    const cartSummary = document.querySelector("#cart-container");
+    const dessertName = document.createElement("div");  
+    const button = event.target.closest(".cart-button"); 
+    const specificInfo = button.closest(".product-all").querySelector(".specific-info");
+  
+
+    cartSummary.appendChild(dessertName);
+    dessertName.innerText = specificInfo.innerText;
+
+
 }
