@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 cartBtns.forEach(btn => {
     btn.addEventListener("click", function(event) {
+        console.log("Cart button clicked");  // debug
         const button = event.target.closest(".cart-button"); // Ensure we are targeting the button element itself
         const isAdding = button.classList.contains("added-to-cart");
 
@@ -188,7 +189,7 @@ function updateDessertVisibility() {
 // Function to get the total quantity from all cart counters
 function getTotalCartQuantity() {
     const cartCounters = document.querySelectorAll(".cart-counter");
-    let totalQuantity = 0;
+    let totalQuantity = 1;
     
     cartCounters.forEach(counter => {
         totalQuantity += parseInt(counter.innerText) || 0; // Safely parse and sum quantities
