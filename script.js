@@ -155,13 +155,44 @@ function resetCartDisplay() {
 
 function addItemToCart(event) {
     const cartSummary = document.querySelector("#cart-container");
-    const dessertName = document.createElement("div");  
     const button = event.target.closest(".cart-button"); 
     const specificInfo = button.closest(".product-all").querySelector(".specific-info");
-  
+    let dessertName = cartSummary.querySelector(".dessert-name");
+    
+    // Check if dessertName already exists; if not, create it
+    if (!dessertName) {
+        dessertName = document.createElement("div");  
+        dessertName.classList.add("dessert-name"); // Add a class for styling if needed
+        cartSummary.appendChild(dessertName);
+    }
 
-    cartSummary.appendChild(dessertName);
+    // update the dessertName text
     dessertName.innerText = specificInfo.innerText;
 
+        // Show or hide dessertName based on total cart quantity
+        updateDessertVisibility();
+    }
 
+// Helper function to update the visibility of the dessert name based on total quantity
+function updateDessertVisibility() {
+    const totalQuantity = getTotalCartQuantity(); // Ensure this function returns the total quantity of all items
+    const dessertName = document.querySelector(".dessert-name");
+  
+    if (totalQuantity > 0) {
+        dessertName.style.display = "block"; // Show the dessert name
+    } else {
+        dessertName.style.display = "none"; // Hide the dessert name
+    }
+}
+
+// Function to get the total quantity from all cart counters
+function getTotalCartQuantity() {
+    const cartCounters = document.querySelectorAll(".cart-counter");
+    let totalQuantity = 0;
+    
+    cartCounters.forEach(counter => {
+        totalQuantity += parseInt(counter.innerText) || 0; // Safely parse and sum quantities
+    });
+    
+    return totalQuantity; // Return the total quantity
 }
