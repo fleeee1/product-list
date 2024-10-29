@@ -11,6 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 cartBtns.forEach(btn => {
+    btn.addEventListener("mouseover", function(event) {
+        const button = event.target.closest(".cart-button"); 
+
+        // apply hover property before click to add orange text and border around cart-button
+        if (!button.classList.contains("click")) {
+            button.style.color = 'hsl(14, 86%, 42%)'; 
+            button.style.border = '';
+            }
+    });
+});
+
+cartBtns.forEach(btn => {
     btn.addEventListener("click", function(event) {
 
         const button = event.target.closest(".cart-button"); // Ensure we are targeting the button element itself

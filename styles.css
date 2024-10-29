@@ -61,10 +61,12 @@ h1 {
 }
 
 .cart-button {
+    border-style: solid;
     border-radius: 35px; 
-    border-color: rgb(156, 151, 151); 
+    border-width: 0.5px;
+    border-color: hsl(14, 25%, 72%); 
     height: 38px;
-    width: 150px;
+    width: 145px;
     background-color: hsl(20, 50%, 98%);
     position: relative;
     bottom: 25px;
