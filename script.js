@@ -12,14 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 cartBtns.forEach(btn => {
     btn.addEventListener("click", function(event) {
-        console.log("Cart button clicked");  // debug
+
         const button = event.target.closest(".cart-button"); // Ensure we are targeting the button element itself
         const isAdding = button.classList.contains("added-to-cart");
-
 
         addItemToCart(event);
         // First-time Add to Cart button click
         if (!isAdding) {
+            console.log("First time adding to cart"); // Verify 
             // Activate the button
             button.classList.add("added-to-cart", "active"); // apply active button CSS class
             
@@ -79,10 +79,13 @@ cartBtns.forEach(btn => {
         if (event.target.closest(".increment-btn")) {        
             const counter = button.querySelector(".cart-counter");
             let currentQuantity = parseInt(counter.innerText);
+            console.log("Incrementing. Current quantity before increment:", currentQuantity);
+
             currentQuantity++; // Increment the number
             // counter.innerText = currentQuantity; // Update the counter display
             counter.innerText = currentQuantity; // update counter display
 
+            console.log("Quantity after increment:", currentQuantity);
             // update total cart quantity display
             updateTotalCartQuantity();
            
@@ -92,15 +95,20 @@ cartBtns.forEach(btn => {
         if (event.target.closest(".decrement-btn")) {
             const counter = button.querySelector(".cart-counter"); // Select the counter element
             let currentQuantity = parseInt(counter.innerText); // Parse the current quantity from the counter
+            console.log("Decrementing. Current quantity before decrement:", currentQuantity);
 
             // Decrement the number, but first check if it's greater than 0
             if (currentQuantity > 0) {
+                console.log("Decrementing from:", currentQuantity);
                 currentQuantity--; // Decrement the number
                 counter.innerText = currentQuantity; // Update the counter display
+                console.log("Quantity after decrement:", currentQuantity);
+
                 updateTotalCartQuantity();
                           
                 // if the current counter reaches 0, reset the button
                 if (currentQuantity === 0) {
+                    console.log("Quantity reached 0, resetting button");
                     resetCartButton(button); // reset when quantity is decreased to 0
                         
                     // Get the food image associated with the button
@@ -111,6 +119,7 @@ cartBtns.forEach(btn => {
 
                     // Check if all counters are 0 and reset cart display if needed
                     if (checkIfCartIsEmpty()) {
+                        console.log("All items removed, resetting cart display");
                         resetCartDisplay();
                     }
                 }
@@ -149,9 +158,11 @@ function resetCartButton(button) {
 function resetCartDisplay() {
     const cartImage = document.querySelector("#cart-container .cart-image img");
     const cartText = document.querySelector("#added-items");
+    const dessertName = document.querySelector(".dessert-name");
 
     if (cartImage) cartImage.style.display = "block";
     if (cartText) cartText.style.display = "flex";
+    if (dessertName) dessertName.style.display = "none"; 
 }
 
 function addItemToCart(event) {
@@ -180,8 +191,10 @@ function updateDessertVisibility() {
     const dessertName = document.querySelector(".dessert-name");
   
     if (totalQuantity > 0) {
+        console.log("Total Quantity is greater than 0:", totalQuantity); 
         dessertName.style.display = "block"; // Show the dessert name
     } else {
+        console.log("Total Quantity is 0 or less:", totalQuantity); 
         dessertName.style.display = "none"; // Hide the dessert name
     }
 }
