@@ -11,14 +11,23 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 cartBtns.forEach(btn => {
-    btn.addEventListener("mouseover", function(event) {
+    btn.addEventListener("mouseenter", function(event) {
         const button = event.target.closest(".cart-button"); 
+        console.log("Mouse over button:", button); // Log when mouseover happens
 
         // apply hover property before click to add orange text and border around cart-button
         if (!button.classList.contains("click")) {
-            button.style.color = 'hsl(14, 86%, 42%)'; 
-            button.style.border = '';
-            }
+            button.classList.add("hover");
+        }
+    });
+});
+
+cartBtns.forEach(btn => {
+    btn.addEventListener("mouseleave", function(event) {
+        const button = event.target.closest(".cart-button"); 
+        console.log("Mouse out from button:", button); // Log when mouseout happens
+
+        button.classList.remove("hover");
     });
 });
 
@@ -31,7 +40,6 @@ cartBtns.forEach(btn => {
         addItemToCart(event);
         // First-time Add to Cart button click
         if (!isAdding) {
-            console.log("First time adding to cart"); // Verify 
             // Activate the button
             button.classList.add("added-to-cart", "active"); // apply active button CSS class
             
@@ -47,12 +55,17 @@ cartBtns.forEach(btn => {
                 counter.classList.add("cart-counter"); // Add the class .cart-counter to it
                 currentQuantity = 1; // set to 1 on first click
                 counter.innerText = 1; 
+                console.log("Cart counter now showing: ", counter);
                 // cartQuantity.innerText = `Your Cart (${currentQuantity})`;
                 button.appendChild(counter); // Append it to the button
                 
+                console.log("Cart counter added:", counter); // Log when counter is added
             }
 
+            console.log("Button clicked:", button);
+
             cartQuantity.innerText = `Your Cart (1)`; // initialize cart with 1 item
+            console.log("Cart quantity text updated:", cartQuantity.innerText); // Log the updated cart quantity
             
           
 
@@ -203,10 +216,8 @@ function updateDessertVisibility() {
     const dessertName = document.querySelector(".dessert-name");
   
     if (totalQuantity > 0) {
-        console.log("Total Quantity is greater than 0:", totalQuantity); 
         dessertName.style.display = "block"; // Show the dessert name
     } else {
-        console.log("Total Quantity is 0 or less:", totalQuantity); 
         dessertName.style.display = "none"; // Hide the dessert name
     }
 }

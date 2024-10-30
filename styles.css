@@ -46,8 +46,7 @@ h1 {
 }
 
 .image-container.active {
-    /* border: 2px solid hsl(14, 86%, 42%); */
-    border: 5px solid blue;
+    border: 2px solid hsl(14, 86%, 42%);
 }
 
 #food-image {
@@ -57,7 +56,7 @@ h1 {
 }
 
 #food-image.active {
-    border: 5px green;
+
 }
 
 .cart-button {
@@ -77,8 +76,14 @@ h1 {
     gap: 10px;
 }
 
+.cart-button.hover {
+    color: hsl(14, 86%, 42%);
+    border: 0.5px solid hsl(14, 86%, 42%);
+}
+
 .cart-button.active {
     justify-content: space-between;
+    border-color: hsl(14, 25%, 72%);
     color: rgb(251, 242, 233);
     padding: 0 12px;
 }
