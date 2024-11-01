@@ -3,6 +3,7 @@ const foodImage = document.getElementById("food-image");
 const cartImage = document.getElementById("cart-image");
 const cartQuantity = document.getElementById("cart-quantity");
 let currentQuantity = 0;
+console.log(cartBtns);
 
 document.addEventListener("DOMContentLoaded", () => {
     const cartQuantity = document.getElementById("cart-quantity");
@@ -194,18 +195,19 @@ function addItemToCart(event) {
     const cartSummary = document.querySelector("#cart-container");
     const button = event.target.closest(".cart-button"); 
     const specificInfo = button.closest(".product-all").querySelector(".specific-info");
-    let dessertName = cartSummary.querySelector(".dessert-name");
+   
     
     // Check if dessertName already exists; if not, create it
-    if (!dessertName) {
         dessertName = document.createElement("div");  
         dessertName.classList.add("dessert-name"); // Add a class for styling if needed
-        cartSummary.appendChild(dessertName);
-    }
+        
+    
+
+
 
     // update the dessertName text
     dessertName.innerText = specificInfo.innerText;
-
+    cartSummary.appendChild(dessertName);
         // Show or hide dessertName based on total cart quantity
         updateDessertVisibility();
     }
