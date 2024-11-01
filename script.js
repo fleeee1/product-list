@@ -3,7 +3,7 @@ const foodImage = document.getElementById("food-image");
 const cartImage = document.getElementById("cart-image");
 const cartQuantity = document.getElementById("cart-quantity");
 let currentQuantity = 0;
-console.log(cartBtns);
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const cartQuantity = document.getElementById("cart-quantity");
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 cartBtns.forEach(btn => {
     btn.addEventListener("mouseenter", function(event) {
         const button = event.target.closest(".cart-button"); 
-        console.log("Mouse over button:", button); // Log when mouseover happens
+        
 
         // apply hover property before click to add orange text and border around cart-button
         if (!button.classList.contains("click")) {
@@ -26,7 +26,7 @@ cartBtns.forEach(btn => {
 cartBtns.forEach(btn => {
     btn.addEventListener("mouseleave", function(event) {
         const button = event.target.closest(".cart-button"); 
-        console.log("Mouse out from button:", button); // Log when mouseout happens
+        
 
         button.classList.remove("hover");
     });
@@ -56,17 +56,17 @@ cartBtns.forEach(btn => {
                 counter.classList.add("cart-counter"); // Add the class .cart-counter to it
                 currentQuantity = 1; // set to 1 on first click
                 counter.innerText = 1; 
-                console.log("Cart counter now showing: ", counter);
+                
                 // cartQuantity.innerText = `Your Cart (${currentQuantity})`;
                 button.appendChild(counter); // Append it to the button
                 
-                console.log("Cart counter added:", counter); // Log when counter is added
+                
             }
 
-            console.log("Button clicked:", button);
+            
 
             cartQuantity.innerText = `Your Cart (1)`; // initialize cart with 1 item
-            console.log("Cart quantity text updated:", cartQuantity.innerText); // Log the updated cart quantity
+            
             
           
 
@@ -105,13 +105,13 @@ cartBtns.forEach(btn => {
         if (event.target.closest(".increment-btn")) {        
             const counter = button.querySelector(".cart-counter");
             let currentQuantity = parseInt(counter.innerText);
-            console.log("Incrementing. Current quantity before increment:", currentQuantity);
+            
 
             currentQuantity++; // Increment the number
             // counter.innerText = currentQuantity; // Update the counter display
             counter.innerText = currentQuantity; // update counter display
 
-            console.log("Quantity after increment:", currentQuantity);
+            
             // update total cart quantity display
             updateTotalCartQuantity();
            
@@ -121,20 +121,20 @@ cartBtns.forEach(btn => {
         if (event.target.closest(".decrement-btn")) {
             const counter = button.querySelector(".cart-counter"); // Select the counter element
             let currentQuantity = parseInt(counter.innerText); // Parse the current quantity from the counter
-            console.log("Decrementing. Current quantity before decrement:", currentQuantity);
+            
 
             // Decrement the number, but first check if it's greater than 0
             if (currentQuantity > 0) {
-                console.log("Decrementing from:", currentQuantity);
+                
                 currentQuantity--; // Decrement the number
                 counter.innerText = currentQuantity; // Update the counter display
-                console.log("Quantity after decrement:", currentQuantity);
+                
 
                 updateTotalCartQuantity();
                           
                 // if the current counter reaches 0, reset the button
                 if (currentQuantity === 0) {
-                    console.log("Quantity reached 0, resetting button");
+                    
                     resetCartButton(button); // reset when quantity is decreased to 0
                         
                     // Get the food image associated with the button
@@ -145,7 +145,7 @@ cartBtns.forEach(btn => {
 
                     // Check if all counters are 0 and reset cart display if needed
                     if (checkIfCartIsEmpty()) {
-                        console.log("All items removed, resetting cart display");
+                        
                         resetCartDisplay();
                     }
                 }
