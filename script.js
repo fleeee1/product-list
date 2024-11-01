@@ -14,8 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
 cartBtns.forEach(btn => {
     btn.addEventListener("mouseenter", function(event) {
         const button = event.target.closest(".cart-button"); 
-        
-
         // apply hover property before click to add orange text and border around cart-button
         if (!button.classList.contains("click")) {
             button.classList.add("hover");
@@ -26,15 +24,14 @@ cartBtns.forEach(btn => {
 cartBtns.forEach(btn => {
     btn.addEventListener("mouseleave", function(event) {
         const button = event.target.closest(".cart-button"); 
-        
-
         button.classList.remove("hover");
     });
 });
 
 cartBtns.forEach(btn => {
     btn.addEventListener("click", function(event) {
-
+        console.log("Cart button clicked"); // Confirming the button click
+        console.log(event.target); // Logging the exact element clicked
         const button = event.target.closest(".cart-button"); // Ensure we are targeting the button element itself
         const isAdding = button.classList.contains("added-to-cart");
 
@@ -47,7 +44,6 @@ cartBtns.forEach(btn => {
 
             // Check if the .cart-counter already exists
             let counter = button.querySelector(".cart-counter");
-            // let currentQuantity = counter ? parseInt(counter.innerText) : 0;
             
             // If the .cart-counter doesn't exist yet, create it
             if (!counter) {
@@ -102,7 +98,8 @@ cartBtns.forEach(btn => {
 }
 
         // Increment logic (for the `+` button)
-        if (event.target.closest(".increment-btn")) {        
+        if (event.target.closest(".increment-btn")) {   
+            console.log("event.target.closest here"); // Verifying the match     
             const counter = button.querySelector(".cart-counter");
             let currentQuantity = parseInt(counter.innerText);
             
@@ -200,6 +197,7 @@ function addItemToCart(event) {
     // Check if dessertName already exists; if not, create it
         dessertName = document.createElement("div");  
         dessertName.classList.add("dessert-name"); // Add a class for styling if needed
+        console.log("add: ", dessertName);
         
     
 
