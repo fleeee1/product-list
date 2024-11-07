@@ -1,235 +1,168 @@
 const cartBtns = document.querySelectorAll(".cart-button");
-const foodImage = document.getElementById("food-image");
-const cartImage = document.getElementById("cart-image");
 const cartQuantity = document.getElementById("cart-quantity");
 let currentQuantity = 0;
 
-
+// Initialize cart quantity display on page load
 document.addEventListener("DOMContentLoaded", () => {
-    const cartQuantity = document.getElementById("cart-quantity");
-    cartQuantity.innerText = `Your Cart (${currentQuantity})`; // Set to 0 on load
+    cartQuantity.innerText = `Your Cart (${currentQuantity})`;
+});
+
+// Add hover effects to cart buttons
+cartBtns.forEach(btn => {
+    btn.addEventListener("mouseenter", () => btn.classList.add("hover"));
+    btn.addEventListener("mouseleave", () => btn.classList.remove("hover"));
     
+    btn.addEventListener("click", (event) => handleCartButtonClick(event, btn));
 });
 
-cartBtns.forEach(btn => {
-    btn.addEventListener("mouseenter", function(event) {
-        const button = event.target.closest(".cart-button"); 
-        // apply hover property before click to add orange text and border around cart-button
-        if (!button.classList.contains("click")) {
-            button.classList.add("hover");
-        }
-    });
-});
+// Handle click events for increment and decrement buttons
+function handleCartButtonClick(event, button) {
+    const isAdding = button.classList.contains("added-to-cart");
+    const isIncrement = event.target.closest(".increment-btn");
+    const isDecrement = event.target.closest(".decrement-btn");
+    
+    if (isIncrement) {
+        incrementItem(button);
+    } else if (isDecrement) {
+        decrementItem(button);
+    } else if (!isAdding) {
+        addItemToCart(button);
+    }
+}
 
-cartBtns.forEach(btn => {
-    btn.addEventListener("mouseleave", function(event) {
-        const button = event.target.closest(".cart-button"); 
-        button.classList.remove("hover");
-    });
-});
-
-cartBtns.forEach(btn => {
-    btn.addEventListener("click", function(event) {
-        console.log("Cart button clicked"); // Confirming the button click
-        console.log(event.target); // Logging the exact element clicked
-        const button = event.target.closest(".cart-button"); // Ensure we are targeting the button element itself
-        const isAdding = button.classList.contains("added-to-cart");
-
-        addItemToCart(event);
-        // First-time Add to Cart button click
-        if (!isAdding) {
-            // Activate the button
-            button.classList.add("added-to-cart", "active"); // apply active button CSS class
-            
-
-            // Check if the .cart-counter already exists
-            let counter = button.querySelector(".cart-counter");
-            
-            // If the .cart-counter doesn't exist yet, create it
-            if (!counter) {
-                // If counter doesn't exist yet, create it
-                counter = document.createElement("span"); // Create the <span> element to hold the counter
-                counter.classList.add("cart-counter"); // Add the class .cart-counter to it
-                currentQuantity = 1; // set to 1 on first click
-                counter.innerText = 1; 
-                
-                // cartQuantity.innerText = `Your Cart (${currentQuantity})`;
-                button.appendChild(counter); // Append it to the button
-                
-                
-            }
-
-            
-
-            cartQuantity.innerText = `Your Cart (1)`; // initialize cart with 1 item
-            
-            
-          
-
-    // Remove cart image and text
-    const cartImage = document.querySelector("#cart-container .cart-image img");
-    const cartText = document.querySelector("#added-items");
-    if (cartImage) cartImage.style.display = "none";
-    if (cartText) cartText.style.display = "none";
-
-    // Apply styling changes
-    const foodImage = button.closest(".image-container").querySelector("img");
-    foodImage.style.border = "2px solid hsl(14, 86%, 42%)";
-    button.style.backgroundColor = 'hsl(14, 86%, 42%)';
-
-    // Add increment and decrement controls without breaking the counter
-    const incrementBtn = document.createElement("div");
-    incrementBtn.classList.add("circle", "increment-btn");
-    incrementBtn.innerHTML = `<img src="assets/images/icon-increment-quantity.svg">`;
-
-    const decrementBtn = document.createElement("div");
-    decrementBtn.classList.add("circle", "decrement-btn");
-    decrementBtn.innerHTML = `<img src="assets/images/icon-decrement-quantity.svg">`;
-
-    // Clear button contents and re-append the elements
+// First-time add to cart setup
+function addItemToCart(button) {
+    button.classList.add("added-to-cart", "active");
+    currentQuantity = 1;
+    
+    // Create counter display if it doesn't exist
+    let counter = button.querySelector(".cart-counter");
+    if (!counter) {
+        counter = document.createElement("span");
+        counter.classList.add("cart-counter");
+        counter.innerText = currentQuantity;
+        button.appendChild(counter);
+    }
+    
+    // Update the button contents
     button.innerHTML = "";
-    button.append(decrementBtn, counter, incrementBtn);
+    button.append(createButton("decrement-btn", "assets/images/icon-decrement-quantity.svg"));
+    button.append(counter);
+    button.append(createButton("increment-btn", "assets/images/icon-increment-quantity.svg"));
+    
+    // Add item to cart summary
+    const specificInfo = button.closest(".product-all").querySelector(".specific-info").innerText;
+    addToCartSummary(specificInfo, currentQuantity);
+    
+    // Update total quantity and appearance
+    updateTotalCartQuantity();
+    updateCartAppearance(button, true);
+}
 
-    // Update total cart quantity after first-time click
+// Increment item quantity
+function incrementItem(button) {
+    const counter = button.querySelector(".cart-counter");
+    currentQuantity = parseInt(counter.innerText) + 1;
+    counter.innerText = currentQuantity;
     updateTotalCartQuantity();
     
-
-    return; // Exit here to prevent further logic from running
+    // Update item quantity in cart summary
+    const specificInfo = button.closest(".product-all").querySelector(".specific-info").innerText;
+    updateCartSummaryItem(specificInfo, currentQuantity);
 }
 
-        // Increment logic (for the `+` button)
-        if (event.target.closest(".increment-btn")) {   
-            console.log("event.target.closest here"); // Verifying the match     
-            const counter = button.querySelector(".cart-counter");
-            let currentQuantity = parseInt(counter.innerText);
-            
-
-            currentQuantity++; // Increment the number
-            // counter.innerText = currentQuantity; // Update the counter display
-            counter.innerText = currentQuantity; // update counter display
-
-            
-            // update total cart quantity display
-            updateTotalCartQuantity();
-           
-        }
-            
-        // decrement logic
-        if (event.target.closest(".decrement-btn")) {
-            const counter = button.querySelector(".cart-counter"); // Select the counter element
-            let currentQuantity = parseInt(counter.innerText); // Parse the current quantity from the counter
-            
-
-            // Decrement the number, but first check if it's greater than 0
-            if (currentQuantity > 0) {
-                
-                currentQuantity--; // Decrement the number
-                counter.innerText = currentQuantity; // Update the counter display
-                
-
-                updateTotalCartQuantity();
-                          
-                // if the current counter reaches 0, reset the button
-                if (currentQuantity === 0) {
-                    
-                    resetCartButton(button); // reset when quantity is decreased to 0
-                        
-                    // Get the food image associated with the button
-                    const foodImage = button.closest(".image-container").querySelector("img");
-                    if (foodImage) {
-                        foodImage.style.border = "none"; // Remove the border
-                    }
-
-                    // Check if all counters are 0 and reset cart display if needed
-                    if (checkIfCartIsEmpty()) {
-                        
-                        resetCartDisplay();
-                    }
-                }
-            }
-        }
-    });
-});
-
-function checkIfCartIsEmpty() {
-    return [...cartBtns].every((btn) => {
-        const counter = btn.querySelector(".cart-counter");
-        return !counter || parseInt(counter.innerText) === 0;
-    });
+// Decrement item quantity and handle removal if it reaches zero
+function decrementItem(button) {
+    const counter = button.querySelector(".cart-counter");
+    currentQuantity = Math.max(0, parseInt(counter.innerText) - 1);
+    counter.innerText = currentQuantity;
+    
+    if (currentQuantity === 0) {
+        resetCartButton(button);
+    }
+    
+    updateTotalCartQuantity();
+    
+    // Update or remove item from cart summary
+    const specificInfo = button.closest(".product-all").querySelector(".specific-info").innerText;
+    if (currentQuantity === 0) {
+        removeFromCartSummary(specificInfo);
+    } else {
+        updateCartSummaryItem(specificInfo, currentQuantity);
+    }
 }
 
-// helper function to update the total cart quantity
-function updateTotalCartQuantity() {
-    let totalQuantity = 0;
-
-    cartBtns.forEach((btn) => {
-        const counter = btn.querySelector(".cart-counter");
-        if (counter) {
-            totalQuantity += parseInt(counter.innerText);
-        }
-    });
-
-    cartQuantity.innerText = `Your Cart (${totalQuantity})`;
-}
-
+// Reset button appearance when quantity is zero
 function resetCartButton(button) {
     button.classList.remove("added-to-cart", "active");
-    button.style.backgroundColor = "hsl(20, 50%, 98%)";
-    button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg"> Add to Cart`;
+    button.style.backgroundColor = "";
+    button.innerHTML = `<img src="assets/images/icon-add-to-cart.svg" alt="add to cart"> Add to Cart`;
 }
 
-function resetCartDisplay() {
-    const cartImage = document.querySelector("#cart-container .cart-image img");
-    const cartText = document.querySelector("#added-items");
-    const dessertName = document.querySelector(".dessert-name");
-
-    if (cartImage) cartImage.style.display = "block";
-    if (cartText) cartText.style.display = "flex";
-    if (dessertName) dessertName.style.display = "none"; 
-}
-
-function addItemToCart(event) {
-    const cartSummary = document.querySelector("#cart-container");
-    const button = event.target.closest(".cart-button"); 
-    const specificInfo = button.closest(".product-all").querySelector(".specific-info");
-   
-    
-    // Check if dessertName already exists; if not, create it
-        dessertName = document.createElement("div");  
-        dessertName.classList.add("dessert-name"); // Add a class for styling if needed
-        console.log("add: ", dessertName);
-        
-    
-
-
-
-    // update the dessertName text
-    dessertName.innerText = specificInfo.innerText;
-    cartSummary.appendChild(dessertName);
-        // Show or hide dessertName based on total cart quantity
-        updateDessertVisibility();
-    }
-
-// Helper function to update the visibility of the dessert name based on total quantity
-function updateDessertVisibility() {
-    const totalQuantity = getTotalCartQuantity(); // Ensure this function returns the total quantity of all items
-    const dessertName = document.querySelector(".dessert-name");
-  
-    if (totalQuantity > 0) {
-        dessertName.style.display = "block"; // Show the dessert name
-    } else {
-        dessertName.style.display = "none"; // Hide the dessert name
-    }
-}
-
-// Function to get the total quantity from all cart counters
-function getTotalCartQuantity() {
-    const cartCounters = document.querySelectorAll(".cart-counter");
-    let totalQuantity = 1;
-    
-    cartCounters.forEach(counter => {
-        totalQuantity += parseInt(counter.innerText) || 0; // Safely parse and sum quantities
+// Update total cart quantity across all buttons
+function updateTotalCartQuantity() {
+    let totalQuantity = 0;
+    document.querySelectorAll(".cart-counter").forEach(counter => {
+        totalQuantity += parseInt(counter.innerText);
     });
+    cartQuantity.innerText = `Your Cart (${totalQuantity})`;
     
-    return totalQuantity; // Return the total quantity
+    // Show or hide the cart summary based on whether there are items in the cart
+    const cartImage = document.querySelector("#cart-container .cart-image img");
+    const cartSummary = document.getElementById("added-items");
+    if (totalQuantity > 0) {
+        if (cartImage) cartImage.style.display = "none"; // Hide empty cart image
+        cartSummary.style.display = "block"; // Show cart summary
+    } else {
+        if (cartImage) cartImage.style.display = "block"; // Show empty cart image
+        cartSummary.style.display = "none"; // Hide cart summary
+    }
+}
+
+// Add item to cart summary display
+function addToCartSummary(itemName, quantity) {
+    const cartSummary = document.getElementById("added-items");
+    let itemElement = document.querySelector(`.cart-item[data-item-name="${itemName}"]`);
+    
+    if (!itemElement) {
+        // Create a new item element if it doesn't already exist
+        itemElement = document.createElement("p");
+        itemElement.classList.add("cart-item");
+        itemElement.setAttribute("data-item-name", itemName);
+        cartSummary.appendChild(itemElement);
+    }
+    
+    itemElement.innerText = `${quantity} ${itemName}`;
+}
+
+// Update item quantity in cart summary display
+function updateCartSummaryItem(itemName, quantity) {
+    const itemElement = document.querySelector(`.cart-item[data-item-name="${itemName}"]`);
+    if (itemElement) {
+        itemElement.innerText = `${quantity} ${itemName}`;
+    }
+}
+
+// Remove item from cart summary display
+function removeFromCartSummary(itemName) {
+    const itemElement = document.querySelector(`.cart-item[data-item-name="${itemName}"]`);
+    if (itemElement) {
+        itemElement.remove();
+    }
+}
+
+// Create increment or decrement button elements
+function createButton(className, iconSrc) {
+    const btn = document.createElement("div");
+    btn.classList.add("circle", className);
+    btn.innerHTML = `<img src="${iconSrc}" alt="${className}">`;
+    return btn;
+}
+
+// Update cart appearance and visibility of related items
+function updateCartAppearance(button, add) {
+    const foodImage = button.closest(".image-container").querySelector("img");
+    if (foodImage) {
+        foodImage.style.border = add ? "2px solid hsl(14, 86%, 42%)" : "none";
+    }
 }
