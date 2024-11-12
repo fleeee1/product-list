@@ -83,6 +83,7 @@ function decrementItem(button) {
     
     if (currentQuantity === 0) {
         resetCartButton(button);
+        updateCartAppearance(button, false);
     }
     
     updateTotalCartQuantity();
