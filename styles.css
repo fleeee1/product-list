@@ -160,6 +160,14 @@ h1 {
     padding: 25px;
 }
 
+#next {
+    color: hsl(12, 20%, 44%);
+    font-weight:450;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+}
+
 #added-items {
     color: hsl(12, 20%, 44%);
     font-weight:450;
