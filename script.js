@@ -1,3 +1,4 @@
+// Select all cart buttons and the cart quantity display
 const cartBtns = document.querySelectorAll(".cart-button");
 const cartQuantity = document.getElementById("cart-quantity");
 let currentQuantity = 0;
@@ -11,23 +12,19 @@ document.addEventListener("DOMContentLoaded", () => {
 cartBtns.forEach(btn => {
     btn.addEventListener("mouseenter", () => btn.classList.add("hover"));
     btn.addEventListener("mouseleave", () => btn.classList.remove("hover"));
-    
     btn.addEventListener("click", (event) => handleCartButtonClick(event, btn));
 });
 
 // Handle click events for increment and decrement buttons
 function handleCartButtonClick(event, button) {
-    const isAdding = button.classList.contains("added-to-cart");
     const isIncrement = event.target.closest(".increment-btn");
     const isDecrement = event.target.closest(".decrement-btn");
-    
-    button.style.backgroundColor = "hsl(14, 86%, 42%)";
 
     if (isIncrement) {
         incrementItem(button);
     } else if (isDecrement) {
         decrementItem(button);
-    } else if (!isAdding) {
+    } else {
         addItemToCart(button);
     }
 }
@@ -35,8 +32,11 @@ function handleCartButtonClick(event, button) {
 // First-time add to cart setup
 function addItemToCart(button) {
     button.classList.add("added-to-cart", "active");
+    button.style.backgroundColor = "hsl(14, 86%, 42%)";
     currentQuantity = 1;
-    
+
+    button.closest(".image-container").querySelector("#food-image").style.border = "2px solid hsl(14, 86%, 42%)";
+
     // Create counter display if it doesn't exist
     let counter = button.querySelector(".cart-counter");
     if (!counter) {
@@ -45,17 +45,17 @@ function addItemToCart(button) {
         counter.innerText = currentQuantity;
         button.appendChild(counter);
     }
-    
+
     // Update the button contents
     button.innerHTML = "";
     button.append(createButton("decrement-btn", "assets/images/icon-decrement-quantity.svg"));
     button.append(counter);
     button.append(createButton("increment-btn", "assets/images/icon-increment-quantity.svg"));
-    
+
     // Add item to cart summary
     const specificInfo = button.closest(".product-all").querySelector(".specific-info").innerText;
     addToCartSummary(specificInfo, currentQuantity);
-    
+
     // Update total quantity and appearance
     updateTotalCartQuantity();
     updateCartAppearance(button, true);
@@ -64,12 +64,12 @@ function addItemToCart(button) {
 // Increment item quantity
 function incrementItem(button) {
     const counter = button.querySelector(".cart-counter");
-    document.querySelector("#next").style.display="none";
     currentQuantity = parseInt(counter.innerText) + 1;
     counter.innerText = currentQuantity;
-    
+    button.style.backgroundColor = "hsl(14, 86%, 42%)";
+
     updateTotalCartQuantity();
-    
+
     // Update item quantity in cart summary
     const specificInfo = button.closest(".product-all").querySelector(".specific-info").innerText;
     updateCartSummaryItem(specificInfo, currentQuantity);
@@ -80,14 +80,16 @@ function decrementItem(button) {
     const counter = button.querySelector(".cart-counter");
     currentQuantity = Math.max(0, parseInt(counter.innerText) - 1);
     counter.innerText = currentQuantity;
-    
+
     if (currentQuantity === 0) {
         resetCartButton(button);
         updateCartAppearance(button, false);
+    } else {
+        button.style.backgroundColor = "hsl(14, 86%, 42%)";
     }
-    
+
     updateTotalCartQuantity();
-    
+
     // Update or remove item from cart summary
     const specificInfo = button.closest(".product-all").querySelector(".specific-info").innerText;
     if (currentQuantity === 0) {
@@ -111,52 +113,61 @@ function updateTotalCartQuantity() {
         totalQuantity += parseInt(counter.innerText);
     });
     cartQuantity.innerText = `Your Cart (${totalQuantity})`;
-    
-    // Show or hide the cart summary based on whether there are items in the cart
+
     const cartImage = document.querySelector("#cart-container .cart-image img");
     const cartSummary = document.getElementById("added-items");
     if (totalQuantity > 0) {
-        if (cartImage) cartImage.style.display = "none"; // Hide empty cart image
-        cartSummary.style.display = "block"; // Show cart summary
-        document.querySelector("#next").style.display = "none"; // hide "Your added items..." message
+        if (cartImage) cartImage.style.display = "none";
+        cartSummary.style.display = "block";
+        document.querySelector("#next").style.display = "none";
     } else {
-        if (cartImage) cartImage.style.display = "block"; // Show empty cart image
-        cartSummary.style.display = "none"; // Hide cart summary
-        document.querySelector("#next").style.display = "block"; // Show "next" message
-        document.querySelector("#next").style.display = "flex"; // Show "next" message
+        if (cartImage) cartImage.style.display = "block";
+        cartSummary.style.display = "none";
+        document.querySelector("#next").style.display = "flex";
     }
 }
 
 // Add item to cart summary display
 function addToCartSummary(itemName, quantity) {
     const cartSummary = document.getElementById("added-items");
-    let itemElement = document.querySelector(`.cart-item[data-item-name="${itemName}"]`);
-    
-    if (!itemElement) {
-        // Create a new item element if it doesn't already exist
-        itemElement = document.createElement("p");
-        itemElement.classList.add("cart-item");
-        itemElement.setAttribute("data-item-name", itemName);
-        cartSummary.appendChild(itemElement);
+    let itemContainer = document.querySelector(`.cart-item-container[data-item-name="${itemName}"]`);
+
+    if (!itemContainer) {
+        itemContainer = document.createElement("div");
+        itemContainer.classList.add("cart-item-container");
+        itemContainer.dataset.itemName = itemName;
+
+        const itemElement = document.createElement("p");
+        itemElement.classList.add("cart-item-name");
+        itemElement.innerText = itemName;
+
+        const itemQuantity = document.createElement("div");
+        itemQuantity.classList.add("cart-item-quantity");
+        itemQuantity.innerText = `${quantity}x`;
+
+        itemContainer.appendChild(itemElement);
+        itemContainer.appendChild(itemQuantity);
+        cartSummary.appendChild(itemContainer);
+    } else {
+        const itemQuantity = itemContainer.querySelector(".cart-item-quantity");
+        itemQuantity.innerText = `${quantity}x`;
     }
-    
-    itemElement.innerText = `${quantity}x ${itemName}`;
 }
 
 // Update item quantity in cart summary display
 function updateCartSummaryItem(itemName, quantity) {
-    const itemElement = document.querySelector(`.cart-item[data-item-name="${itemName}"]`);
-    if (itemElement) {
-        itemElement.innerText = `${quantity}x ${itemName}`;
+    const itemContainer = document.querySelector(`.cart-item-container[data-item-name="${itemName}"]`);
+    if (itemContainer) {
+        const itemQuantity = itemContainer.querySelector(".cart-item-quantity");
+        itemQuantity.innerText = `${quantity}x`;
     }
 }
 
 // Remove item from cart summary display
 function removeFromCartSummary(itemName) {
-    const itemElement = document.querySelector(`.cart-item[data-item-name="${itemName}"]`);
-    // const addedItem = document.getElementById("added-items");
-    if (itemElement) {
-        itemElement.remove();
+    const itemContainer = document.querySelector(`.cart-item-container[data-item-name="${itemName}"]`);
+    if (itemContainer) {
+        itemContainer.remove();
     }
 }
 
