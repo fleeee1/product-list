@@ -132,7 +132,7 @@ function addToCartSummary(itemName, quantity) {
     const cartSummary = document.getElementById("added-items");
     let itemContainer = document.querySelector(`.cart-item-container[data-item-name="${itemName}"]`);
 
-    if (!itemContainer) {
+    if (!itemContainer) { //this adds the item names to the cart summary, 1x, etc.
         itemContainer = document.createElement("div");
         itemContainer.classList.add("cart-item-container");
         itemContainer.dataset.itemName = itemName;
@@ -148,7 +148,7 @@ function addToCartSummary(itemName, quantity) {
         itemContainer.appendChild(itemElement);
         itemContainer.appendChild(itemQuantity);
         cartSummary.appendChild(itemContainer);
-    } else {
+    } else { //this makes sure that if you click somewhere OTHER than inc/dec buttons, nothing changes
         const itemQuantity = itemContainer.querySelector(".cart-item-quantity");
         itemQuantity.innerText = `${quantity}x`;
     }
