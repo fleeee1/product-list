@@ -137,6 +137,10 @@ function addToCartSummary(itemName, quantity) {
         itemContainer.classList.add("cart-item-container");
         itemContainer.dataset.itemName = itemName;
 
+        const itemRowDetails = document.createElement("div"); //added
+        itemRowDetails.classList.add("cart-item-row");
+        itemRowDetails.style.display = 'flex';
+
         const itemElement = document.createElement("p");
         itemElement.classList.add("cart-item-name");
         itemElement.innerText = itemName;
@@ -145,9 +149,16 @@ function addToCartSummary(itemName, quantity) {
         itemQuantity.classList.add("cart-item-quantity");
         itemQuantity.innerText = `${quantity}x`;
 
+        const itemPricePer = document.createElement("div"); //added
+        itemPricePer.classList.add("cart-item-price");
+        itemPricePer.innerText = "anything";
+
         itemContainer.appendChild(itemElement);
-        itemContainer.appendChild(itemQuantity);
+        itemContainer.appendChild(itemRowDetails); //added
+        itemRowDetails.appendChild(itemQuantity); //changed from itemContainer.appendChild..
+        itemRowDetails.appendChild(itemPricePer); //added
         cartSummary.appendChild(itemContainer);
+
     } else { //this makes sure that if you click somewhere OTHER than inc/dec buttons, nothing changes
         const itemQuantity = itemContainer.querySelector(".cart-item-quantity");
         itemQuantity.innerText = `${quantity}x`;
