@@ -138,8 +138,7 @@ function addToCartSummary(itemName, quantity) {
         itemContainer.dataset.itemName = itemName;
 
         const itemRowDetails = document.createElement("div"); //added
-        itemRowDetails.classList.add("cart-item-row");
-        itemRowDetails.style.display = 'flex';
+        itemRowDetails.classList.add("cart-item-row"); //added
 
         const itemElement = document.createElement("p");
         itemElement.classList.add("cart-item-name");
@@ -151,12 +150,23 @@ function addToCartSummary(itemName, quantity) {
 
         const itemPricePer = document.createElement("div"); //added
         itemPricePer.classList.add("cart-item-price");
-        itemPricePer.innerText = "anything";
+        itemPricePer.innerText = "pricePer";
+        
+        const totalPrice = document.createElement("div"); //added
+        totalPrice.classList.add("cart-item-total");
+        totalPrice.innerText = "totalPrice";
+        
+        const removeItem = document.createElement("div"); //added
+        removeItem.classList.add("cart-item-remove");
+        removeItem.innerText = "X";
 
         itemContainer.appendChild(itemElement);
         itemContainer.appendChild(itemRowDetails); //added
         itemRowDetails.appendChild(itemQuantity); //changed from itemContainer.appendChild..
         itemRowDetails.appendChild(itemPricePer); //added
+        itemRowDetails.appendChild(totalPrice); //added
+    
+        itemContainer.appendChild(removeItem); //added
         cartSummary.appendChild(itemContainer);
 
     } else { //this makes sure that if you click somewhere OTHER than inc/dec buttons, nothing changes
