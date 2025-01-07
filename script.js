@@ -131,7 +131,8 @@ function updateTotalCartQuantity() {
 function addToCartSummary(itemName, quantity) {
     const cartSummary = document.getElementById("added-items");
     let itemContainer = document.querySelector(`.cart-item-container[data-item-name="${itemName}"]`);
-
+    // const specificInfo = button.closest(".product-all").querySelector(".specific-info").innerText;
+    
     if (!itemContainer) { //this adds the item names to the cart summary, 1x, etc.
         itemContainer = document.createElement("div");
         itemContainer.classList.add("cart-item-container");
@@ -148,9 +149,16 @@ function addToCartSummary(itemName, quantity) {
         itemQuantity.classList.add("cart-item-quantity");
         itemQuantity.innerText = `${quantity}x`;
 
-        const itemPricePer = document.createElement("div"); //added
-        itemPricePer.classList.add("cart-item-price");
-        itemPricePer.innerText = "pricePer";
+        const itemPricePer = document.querySelector(".price");
+        itemPricePer.innerText = document.querySelector(".price").textContent;
+
+        // const itemPricePer = document.querySelector(".price");
+        // itemPricePer.classList.add("cart-item-price");
+        // itemPricePer.innerHTML = itemPricePer;
+
+        // const itemPricePer = document.createElement("div"); //added
+        // itemPricePer.classList.add("cart-item-price");
+        // itemPricePer.innerText = "pricePer";
         
         const totalPrice = document.createElement("div"); //added
         totalPrice.classList.add("cart-item-total");
