@@ -36,6 +36,7 @@ function addItemToCart(button) {
     currentQuantity = 1;
 
     button.closest(".image-container").querySelector("#food-image").style.border = "2px solid hsl(14, 86%, 42%)";
+    
 
     // Create counter display if it doesn't exist
     let counter = button.querySelector(".cart-counter");
@@ -53,8 +54,11 @@ function addItemToCart(button) {
     button.append(createButton("increment-btn", "assets/images/icon-increment-quantity.svg"));
 
     // Add item to cart summary
-    const specificInfo = button.closest(".product-all").querySelector(".specific-info").innerText;
-    addToCartSummary(specificInfo, currentQuantity);
+    const productContainer = button.closest(".product-all");
+    const specificInfo = productContainer.querySelector(".specific-info").innerText;
+    const pricePer = productContainer.querySelector(".price").innerText;
+    addToCartSummary(specificInfo, currentQuantity, pricePer);
+    console.log(pricePer);
 
     // Update total quantity and appearance
     updateTotalCartQuantity();
@@ -128,7 +132,7 @@ function updateTotalCartQuantity() {
 }
 
 // Add item to cart summary display
-function addToCartSummary(itemName, quantity) {
+function addToCartSummary(itemName, quantity, price) {
     const cartSummary = document.getElementById("added-items");
     let itemContainer = document.querySelector(`.cart-item-container[data-item-name="${itemName}"]`);
     // const specificInfo = button.closest(".product-all").querySelector(".specific-info").innerText;
@@ -148,21 +152,15 @@ function addToCartSummary(itemName, quantity) {
         const itemQuantity = document.createElement("div");
         itemQuantity.classList.add("cart-item-quantity");
         itemQuantity.innerText = `${quantity}x`;
+        console.log(itemQuantity.innerText)
 
-        const itemPricePer = document.querySelector(".price");
-        itemPricePer.innerText = document.querySelector(".price").textContent;
-
-        // const itemPricePer = document.querySelector(".price");
-        // itemPricePer.classList.add("cart-item-price");
-        // itemPricePer.innerHTML = itemPricePer;
-
-        // const itemPricePer = document.createElement("div"); //added
-        // itemPricePer.classList.add("cart-item-price");
-        // itemPricePer.innerText = "pricePer";
+        const itemPricePer = document.createElement("div");
+        itemPricePer.classList.add("cart-item-pricePer");
+        itemPricePer.innerText = price;
         
         const totalPrice = document.createElement("div"); //added
         totalPrice.classList.add("cart-item-total");
-        totalPrice.innerText = "totalPrice";
+        totalPrice.innerText = `$${(parseFloat(price.slice(1)) * quantity).toFixed(2)}`
         
         const removeItem = document.createElement("div"); //added
         removeItem.classList.add("cart-item-remove");
@@ -180,6 +178,8 @@ function addToCartSummary(itemName, quantity) {
     } else { //this makes sure that if you click somewhere OTHER than inc/dec buttons, nothing changes
         const itemQuantity = itemContainer.querySelector(".cart-item-quantity");
         itemQuantity.innerText = `${quantity}x`;
+        const totalPrice=itemContainer.querySelector('.cart-item-total');
+        totalPrice.innerText=`$${(parseFloat(price.slice(1)) * quantity).toFixed(2)}`;
     }
 }
 
@@ -189,6 +189,9 @@ function updateCartSummaryItem(itemName, quantity) {
     if (itemContainer) {
         const itemQuantity = itemContainer.querySelector(".cart-item-quantity");
         itemQuantity.innerText = `${quantity}x`;
+        const price = itemContainer.querySelector('.cart-item-pricePer').innerText;
+        const totalPrice=itemContainer.querySelector('.cart-item-total');
+        totalPrice.innerText=`$${(parseFloat(price.slice(1)) * quantity).toFixed(2)}`;
     }
 }
 
